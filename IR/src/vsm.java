@@ -2,6 +2,14 @@ import java.lang.Math;
 public class vsm {
  final static int N=1398; 
  
+ 
+ 	/**
+ 	 * 
+ 	 * @param mtx
+ 	 * @param w
+ 	 * @param d
+ 	 * @return
+ 	 */
 	public static double tfIdf(int[][] mtx, int w, int d){
 		int f = getf(mtx,  w,  d);
 		int nj = gtNj(mtx,w);
