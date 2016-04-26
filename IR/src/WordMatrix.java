@@ -1,12 +1,17 @@
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class WordMatrix {
 	/*
 	 * i = word, j = document
 	 */
 	int[][] wordMatrix;
+	
 
 	/**
 	 * words total number of words document = total number of documents
@@ -147,7 +152,9 @@ public class WordMatrix {
 		return sum;
 	}
 
-/*	*//**
+	
+	
+	/**
 	 * Grades a document given a query
 	 * 
 	 * @param wordMatrix
@@ -158,8 +165,8 @@ public class WordMatrix {
 	 *            query Collection<Integer>
 	 * @param
 	 * @return
-	 *//*
-	private static double BM25(WordMatrix wordMatrix, int doc,
+	 */
+	/*private static double BM25(WordMatrix wordMatrix, int doc,
 			Collection<Integer> query, double k) {
 		double sum = 0;
 		for (int q : query) {
@@ -173,42 +180,79 @@ public class WordMatrix {
 					* Math.log10((wordMatrix.getN() - n) / n);
 		}
 		return sum;
-	}
+	}*/
 
-	*//**
+	/**
 	 * Grades all documents given a query
 	 * 
 	 * @param wordMatrix
 	 * @param query
 	 * @param k
 	 * @return
-	 *//*
-	private static double[] BM25(WordMatrix wordMatrix,
+	 */
+	/*private static double[] BM25(WordMatrix wordMatrix,
 			Collection<Integer> query, double k) {
 		double[] documentScores = new double[wordMatrix.getN()];
 		for (int doc = 0; doc < wordMatrix.getN(); doc++) {
 			documentScores[doc] = BM25(wordMatrix, doc, query, k);
 		}
 		return documentScores;
-	}
+	}*/
 
-	*//**
+	/**
 	 * Grades all documents given a all queries
 	 * 
 	 * @param wordMatrix
 	 * @param queries
 	 * @param k
 	 * @return
-	 *//*
-	public static double[][] BM25(WordMatrix wordMatrix,
-			ArrayList<ArrayList<Integer>> queries, double k) {
-		double[][] documentScores = new double[queries.size()][wordMatrix
+	 */
+	/*public static double[][] BM25(WordMatrix wordMatrix,
+			WordMatrix queries, double k) {
+		
+		double[][] documentScores = new double[queries.getN()][wordMatrix
 				.getN()];
-		for (int query = 0; query < queries.size(); query++) {
-			documentScores[query] = BM25(wordMatrix, queries.get(query), k);
+		for (int q = 0; q < queries.getN(); q++) {
+			ArrayList<Integer> query = new ArrayList<Integer>();
+			for (int word = 0 ; word < wordMatrix.getWordMatrix().length ; word++){
+				int frequency = wordMatrix.getWordMatrix()[word][q];
+				if (frequency > 0){
+					query.add(frequency);
+				}
+			}
+			documentScores[q] = BM25(wordMatrix, query, k);
 		}
 		return documentScores;
 	}*/
+	
+	
+	/*public static List<Integer> getTop10BM25(WordMatrix wordMatrix,
+			Collection<Integer> query, double k){
+		double[] arr = BM25(wordMatrix, query, k);
+		
+		HashMap<Integer,Double> docs = new HashMap<Integer, Double>();
+		for (int i = 0 ; i < arr.length ; i++){
+			docs.put(i, arr[i]);
+		}
+		
+		LinkedHashMap<Integer, Double> sortHashMap = sortHashMapByValues(docs);
+		
+		
+		ArrayList<Integer> result = new ArrayList<Integer>(sortHashMap.keySet());
+		
+		//ArrayList<Double> grades = new ArrayList<Double>(docs.values());
+
+	    Collections.sort(grades, new Comparator<Person>() {
+
+	        public int compare(Person o1, Person o2) {
+	            return o1.getAge() - o2.getAge();
+	        }
+	    });
+	    
+	    return result.subList(0, 10);		
+	}*/
+	
+
 
 	/**
 	 * Grades a document given a query
@@ -219,7 +263,7 @@ public class WordMatrix {
 	 * @param lambda
 	 * @return
 	 */
-	private static double LM(WordMatrix wordMatrix, int doc,
+	/*private static double LM(WordMatrix wordMatrix, int doc,
 			Collection<Integer> query, double lambda) {
 		double sum = 0;
 		if (lambda == 0) {
@@ -233,7 +277,7 @@ public class WordMatrix {
 					* wordMatrix.getProbability(q);
 		}
 		return sum;
-	}
+	}*/
 
 	/**
 	 * Grades all documents given a query
@@ -243,14 +287,14 @@ public class WordMatrix {
 	 * @param lambda
 	 * @return
 	 */
-	public static double[] LM(WordMatrix wordMatrix, Collection<Integer> query,
+	/*public static double[] LM(WordMatrix wordMatrix, Collection<Integer> query,
 			double lambda) {
 		double[] documentScores = new double[wordMatrix.getN()];
 		for (int doc = 0; doc < wordMatrix.getN(); doc++) {
 			documentScores[doc] = LM(wordMatrix, doc, query, lambda);
 		}
 		return documentScores;
-	}
+	}*/
 
 	/**
 	 * Grades all documents given a all queries
@@ -260,7 +304,7 @@ public class WordMatrix {
 	 * @param k
 	 * @return
 	 */
-	public static double[][] LM(WordMatrix wordMatrix,
+	/*public static double[][] LM(WordMatrix wordMatrix,
 			ArrayList<ArrayList<Integer>> queries, double k) {
 		double[][] documentScores = new double[queries.size()][wordMatrix
 				.getN()];
@@ -268,7 +312,7 @@ public class WordMatrix {
 			documentScores[query] = LM(wordMatrix, queries.get(query), k);
 		}
 		return documentScores;
-	}
+	}*/
 
 	/**
 	 * calculate the wight of the 
@@ -296,7 +340,7 @@ public class WordMatrix {
 
 
 	/**
-	 * get the number of docs that the word appears
+	 * get the number of docs that the word appears in
 	 * 
 	 * @param word
 	 * @return
