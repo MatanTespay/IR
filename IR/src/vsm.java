@@ -41,6 +41,7 @@ public class vsm {
 	}
 	
 	public static double calcVsm(int[][] mtx, int d, int[][] qry, int q){
+		System.out.println("testing 1..2..1..2");
 		double sumD=0;
 		for (int j = 0; j < mtx.length; j++) {
 			if(mtx[j][0]==d)
