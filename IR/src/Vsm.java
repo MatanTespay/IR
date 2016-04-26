@@ -1,5 +1,5 @@
 import java.lang.Math;
-public class vsm {
+public class Vsm {
  final static int N=1398; 
  
  
